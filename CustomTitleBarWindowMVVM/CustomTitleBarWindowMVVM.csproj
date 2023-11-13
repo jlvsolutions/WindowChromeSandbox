@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\Logo\FlagTurquoise.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Logo\FlagTurquoise.png" />
+  </ItemGroup>
+
 </Project>

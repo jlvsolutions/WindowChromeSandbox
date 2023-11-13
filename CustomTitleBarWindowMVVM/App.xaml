@@ -1,7 +1,7 @@
-﻿<Application x:Class="CustomTitleBarWindow.App"
+﻿<Application x:Class="CustomTitleBarWindowMVVM.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CustomTitleBarWindow"
+             xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
