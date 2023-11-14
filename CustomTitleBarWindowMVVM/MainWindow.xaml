@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
         Icon="Images/Logo/FlagTurquoise.png"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="250" Width="500">
     <Grid>
 
+        <TextBlock Background="PaleTurquoise" Text="Custom TitleBar Window MVVM" FontSize="22"/>
     </Grid>
 </Window>
