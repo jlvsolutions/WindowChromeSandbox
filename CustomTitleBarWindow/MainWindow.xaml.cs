@@ -50,7 +50,7 @@ public partial class MainWindow : Window
         RefreshMaximizeRestoreButton();
     }
 
-
+    #region Maximized placement and sizing
     // Maximized placement and sizing
     protected override void OnSourceInitialized(EventArgs e)
     {
@@ -148,4 +148,5 @@ public partial class MainWindow : Window
         public POINT ptMinTrackSize;
         public POINT ptMaxTrackSize;
     }
+    #endregion
 }
