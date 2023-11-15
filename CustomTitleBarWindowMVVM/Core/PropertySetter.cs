@@ -8,7 +8,7 @@ public abstract class PropertySetter : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected bool Set<T>(ref T? field, T? newValue = default, [CallerMemberName] string? propertyName = null)
+    protected virtual bool Set<T>(ref T? field, T? newValue = default, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field!, newValue!))
         {
