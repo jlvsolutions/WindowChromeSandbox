@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
         mc:Ignorable="d"
-        WindowStyle="None"
-        AllowsTransparency="True"
         Icon="Images/Logo/FlagTurquoise.png"
         Title="MainWindow" Height="250" Width="500">
-    <Grid>
-
-        <TextBlock Background="PaleTurquoise" Text="Custom TitleBar Window MVVM" FontSize="22"/>
+    
+    <Grid Background="AliceBlue">
+        <!--very edge text for testing when edges get cut off while maximized-->
+        <TextBlock Text="AA Top AA" FontSize="22" Height="28" VerticalAlignment="Top"/>
+        <TextBlock Text="VV Bottom VV" FontSize="22" Height="24" VerticalAlignment="Bottom"/>
+        <TextBlock Text="VV Bottom Right VV" FontSize="22" Height="24" VerticalAlignment="Bottom" TextAlignment="Right"/>
     </Grid>
 </Window>

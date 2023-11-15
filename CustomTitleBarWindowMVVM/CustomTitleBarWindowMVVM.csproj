@@ -5,10 +5,16 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\Logo\PasswordMinder3D32.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\Logo\FlagTurquoise.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\Logo\PasswordMinder3D32.ico" />
   </ItemGroup>
 
   <ItemGroup>
