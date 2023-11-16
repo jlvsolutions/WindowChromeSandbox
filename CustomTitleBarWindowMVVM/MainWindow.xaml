@@ -4,14 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
+        xmlns:viewmodels="clr-namespace:CustomTitleBarWindowMVVM.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:WindowViewModel}"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
         Icon="Images/Logo/FlagTurquoise.png"
-        Title="MainWindow" Height="250" Width="500">
+        Template="{StaticResource ResourceKey=ChromeWindowKey}"
+        Title="Lolly's Custom Window" Height="350" Width="700">
+        <!-- NOTE: Setting AllowsTransparency to true causes the default drop shadow to dissapear -->
+        <!-- Setting AllowsTransparency lets us get rounded corners -->
     
-    <Grid Background="AliceBlue">
-        <!--very edge text for testing when edges get cut off while maximized-->
-        <TextBlock Text="AA Top AA" FontSize="22" Height="28" VerticalAlignment="Top"/>
-        <TextBlock Text="VV Bottom VV" FontSize="22" Height="24" VerticalAlignment="Bottom"/>
-        <TextBlock Text="VV Bottom Right VV" FontSize="22" Height="24" VerticalAlignment="Bottom" TextAlignment="Right"/>
-    </Grid>
+    <WindowChrome.WindowChrome>
+        <!--GlassFrameThickness set to 0 causes the default drop shadow to dissapear-->
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="5"
+            />
+    </WindowChrome.WindowChrome>
+    
+    <!--This shows in design time, main window outline shows run time-->
+    <!--<Grid Background="AliceBlue"></Grid>-->
 </Window>

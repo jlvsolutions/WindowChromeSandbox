@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
+
+    <Color x:Key="Background.Medium">#F0F0F0</Color>
+    <SolidColorBrush x:Key="Background.MediumBrush" Color="{StaticResource Background.Medium}" />
+
+    <Color x:Key="Background.Light">#F0F0F0</Color>
+    <SolidColorBrush x:Key="Background.LightBrush" Color="{StaticResource Background.Light}" />
+
+    <Color x:Key="Background.VeryLight">#FCFCFC</Color>
+    <SolidColorBrush x:Key="Background.VeryLightBrush" Color="{StaticResource Background.VeryLight}" />
+
+    <Color x:Key="Foreground.Main">Black</Color>
+    <SolidColorBrush x:Key="Foreground.MainBrush" Color="{StaticResource Foreground.Main}" />
+
+    <Color x:Key="Foreground.Light">White</Color>
+    <SolidColorBrush x:Key="Foreground.LightBrush" Color="{StaticResource Foreground.Light}" />
+
+    <Color x:Key="Foreground.Sensitive">IndianRed</Color>
+    <SolidColorBrush x:Key="Foreground.SensitiveBrush" Color="{StaticResource Foreground.Sensitive}" />
+
+    <Color x:Key="Foreground.Watermark">Gray</Color>
+    <SolidColorBrush x:Key="Foreground.WatermarkBrush" Color="{StaticResource Foreground.Watermark}" />
+
+    <Color x:Key="Border.Primary">Gray</Color>
+    <SolidColorBrush x:Key="Border.PrimaryBrush" Color="{StaticResource Border.Primary}" />
+
+    <Color x:Key="Border.Sensitive">IndianRed</Color>
+    <SolidColorBrush x:Key="Border.SensitiveBrush" Color="{StaticResource Foreground.Sensitive}" />
+
+    <Color x:Key="Menu.Background">#EEF5FD</Color>
+    <SolidColorBrush x:Key="Menu.BackgroundBrush" Color="{StaticResource Menu.Background}" />
+    
+</ResourceDictionary>

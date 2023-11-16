@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
+
+    <ControlTemplate TargetType="{x:Type Window}" x:Key="ChromeWindowKey">
+        <!--Outer border with the drop shadow margin, FallbackValue not working in design time-->
+        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+            <!--Main window outline-->
+            <Grid>
+
+                <!--Window border and drop shadow-->
+                <Border CornerRadius="{Binding WindowCornerRadius}"
+                                        Background="{StaticResource Background.VeryLightBrush}">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="15" Opacity=".4"/>
+                    </Border.Effect>
+                </Border>
+
+                <!--The main window content-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!--Title Bar-->
+                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
+                        <!--Drop Shadow-->
+                        <RowDefinition Height="Auto" />
+                        <!--Window Content-->
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Title Bar-->
+                    <Grid Grid.Column="0" Background="Beige" Panel.ZIndex="1">
+                        <Grid.ColumnDefinitions>
+                            <!--Icon-->
+                            <ColumnDefinition Width="Auto" />
+                            <!--Title-->
+                            <ColumnDefinition Width="*"/>
+                            <!--Window Buttons-->
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Icon-->
+                        <Button Style="{StaticResource SystemIconButton}"
+                                Command="{Binding SystemMenuCommand}">
+                            <Image Source="/Images/Logo/FlagTurquoise.png" />
+                        </Button>
+
+                        <!--Title-->
+                        <Viewbox Grid.Column="1" Margin="5 10 5 10">
+                            <TextBlock Text="{TemplateBinding Title}" />
+                        </Viewbox>
+                        <TextBlock Grid.Column="1"
+                                   FontSize="16"
+                                   VerticalAlignment="Center"
+                                   Text="{TemplateBinding Title}" />
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

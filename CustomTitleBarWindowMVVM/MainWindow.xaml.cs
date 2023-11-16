@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomTitleBarWindowMVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace CustomTitleBarWindowMVVM
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new WindowViewModel(this);
         }
     }
 }

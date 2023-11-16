@@ -2,6 +2,6 @@
 
 namespace CustomTitleBarWindowMVVM.ViewModels;
 
-public abstract class BaseViewModel : PropertySetter
+public abstract class ViewModelBase : PropertySetter
 {
 }
