@@ -3,4 +3,20 @@
                     xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
 
 
+    <Style TargetType="{x:Type TextBlock}" x:Key="TitleText" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource Foreground.MainBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0 8" />
+        <Setter Property="FontSize" Value="12" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                <!--<Setter Property="Foreground" Value="LightGray" />-->
+                <!--<Setter Property="Foreground" Value="{x:Static SystemColors.InactiveCaptionTextBrush}" />-->
+                <!--<Setter Property="Foreground" Value="{DynamicResource SystemColors.InactiveCaptionTextColor}" />-->
+                <Setter Property="Opacity" Value="0.3" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

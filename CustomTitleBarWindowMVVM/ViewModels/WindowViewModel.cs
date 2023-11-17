@@ -35,13 +35,13 @@ public class WindowViewModel : ViewModelBase
     public Thickness OuterMarginSizeThickness => new Thickness(OuterMarginSize);
 
 
-    private int _windowRadius = 6;
+    private double _windowRadius = 16D;
     /// <summary>
     /// The radius of the window corners
     /// </summary>
-    public int WindowRadius
+    public double WindowRadius
     {
-        get => _window.WindowState == WindowState.Maximized ? 0 : _windowRadius;
+        get => _window.WindowState == WindowState.Maximized ? 0D : _windowRadius;
         set => Set(ref _windowRadius, value);
     }
 
@@ -49,6 +49,8 @@ public class WindowViewModel : ViewModelBase
     /// The radius of the window corners
     /// </summary>
     public CornerRadius WindowCornerRadius => new CornerRadius(WindowRadius);
+    public CornerRadius WindowTitleCornerRadius => new CornerRadius(WindowRadius, WindowRadius, 0D, 0D);
+    public CornerRadius WindowContentCornerRadius => new CornerRadius(0D, 0D, WindowRadius, WindowRadius);
 
     /// <summary>
     /// The height of the title bar / caption of the window
@@ -84,6 +86,8 @@ public class WindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(OuterMarginSizeThickness));
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
+            OnPropertyChanged(nameof(WindowTitleCornerRadius));
+            OnPropertyChanged(nameof(WindowContentCornerRadius));
         };
 
     }

@@ -10,8 +10,9 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Icon="Images/Logo/FlagTurquoise.png"
+        Background="Beige"
         Template="{StaticResource ResourceKey=ChromeWindowKey}"
-        Title="Lolly's Custom Window" Height="350" Width="700">
+        Title="Lolly's Custom Window" Height="350" Width="600">
         <!-- NOTE: Setting AllowsTransparency to true causes the default drop shadow to dissapear -->
         <!-- Setting AllowsTransparency lets us get rounded corners -->
     
