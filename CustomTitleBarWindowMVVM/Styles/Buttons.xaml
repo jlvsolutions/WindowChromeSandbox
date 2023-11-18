@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
 
     <!--Hoverless Button-->
-    <Style TargetType="{x:Type Button}" x:Key="Hoverless">
+    <Style TargetType="{x:Type Button}" x:Key="HoverlessButtonStyle">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
@@ -16,11 +16,110 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--System Icon Button-->
-    <Style TargetType="{x:Type Button}" x:Key="SystemIconButton" BasedOn="{StaticResource Hoverless}">
+    <Style TargetType="{x:Type Button}" x:Key="TitleBar.SystemIconButtonStyle" BasedOn="{StaticResource HoverlessButtonStyle}">
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Padding" Value="10" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
-    
+
+    <!--Title Bar Buttons-->
+    <Style TargetType="Button" x:Key="TitleBar.ButtonStyle">
+        <Setter Property="Foreground" Value="{StaticResource Foreground.MainBrush}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border	x:Name="ButtonContentBorder"
+					        Background="Transparent"
+					        BorderThickness="0"
+					        SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter"
+						                  Margin="0"
+						                  HorizontalAlignment="Center"
+						                  VerticalAlignment="Center"
+						                  Focusable="False"
+						                  RecognizesAccessKey="True" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource TitleBar.Button.MouseOverBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource TitleBar.Button.PressedBackgroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False" />
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Opacity" Value="0.3" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Close Title Bar Button-->
+    <Style TargetType="Button" x:Key="TitleBar.CloseButtonStyle">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="ButtonContentBorder"
+					        Background="Transparent"
+					        BorderThickness="0"
+					        SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter"
+						                  Margin="0"
+						                  HorizontalAlignment="Center"
+						                  VerticalAlignment="Center"
+						                  Focusable="False"
+						                  RecognizesAccessKey="True" >
+
+                        </ContentPresenter>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource TitleBar.CloseButton.MouseOverBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Foreground.LightBrush}" />
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource TitleBar.CloseButton.PressedBackgroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False" />
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Opacity" Value="0.3" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

@@ -3,7 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
 
-    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+    <Style TargetType="{x:Type Control}" x:Key="BaseTextStyle">
         <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
 
@@ -12,12 +12,12 @@
         <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
 
-    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseTextStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseTextStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseTextStyle}" />
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
-    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
-    <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource BaseStyle}" />
-    <Style TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseTextStyle}" />
+    <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource BaseTextStyle}" />
+    <Style TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource BaseTextStyle}" />
 
 </ResourceDictionary>

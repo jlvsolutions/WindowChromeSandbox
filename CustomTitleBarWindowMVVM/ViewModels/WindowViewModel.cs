@@ -15,7 +15,7 @@ public class WindowViewModel : ViewModelBase
     /// </summary>
     public double ResizeBorder { get; set; } = 6D;
     /// <summary>
-    /// The size of teh resize border around the window, taking into account the outer margin
+    /// The size of the resize border around the window, taking into account the outer margin
     /// </summary>
     public Thickness ResizeBorderThickness => new Thickness(ResizeBorder + OuterMarginSize);
 
@@ -32,10 +32,10 @@ public class WindowViewModel : ViewModelBase
     /// <summary>
     /// The margin around the window to allow for a drop shadow
     /// </summary>
-    public Thickness OuterMarginSizeThickness => new Thickness(OuterMarginSize);
+    //public Thickness OuterMarginSizeThickness => new Thickness(OuterMarginSize);
 
 
-    private double _windowRadius = 16D;
+    private double _windowRadius = 6D;
     /// <summary>
     /// The radius of the window corners
     /// </summary>
@@ -55,7 +55,7 @@ public class WindowViewModel : ViewModelBase
     /// <summary>
     /// The height of the title bar / caption of the window
     /// </summary>
-    public int TitleHeight { get; set; } = 42;  
+    public int TitleHeight { get; set; } = 28;  
     public GridLength TitleHeightGridLength => new GridLength(TitleHeight + ResizeBorder);
     
     
@@ -83,7 +83,7 @@ public class WindowViewModel : ViewModelBase
         {
             OnPropertyChanged(nameof(ResizeBorderThickness));
             OnPropertyChanged(nameof(OuterMarginSize));
-            OnPropertyChanged(nameof(OuterMarginSizeThickness));
+            //OnPropertyChanged(nameof(OuterMarginSizeThickness));
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
             OnPropertyChanged(nameof(WindowTitleCornerRadius));

@@ -29,10 +29,24 @@
     <Color x:Key="Border.Sensitive">IndianRed</Color>
     <SolidColorBrush x:Key="Border.SensitiveBrush" Color="{StaticResource Foreground.Sensitive}" />
 
+    <Color x:Key="Border.WindowTrim">SteelBlue</Color>
+    <SolidColorBrush x:Key="Border.WindowTrimBrush" Color="{StaticResource Border.WindowTrim}" />
+
     <Color x:Key="Menu.Background">#EEF5FD</Color>
     <SolidColorBrush x:Key="Menu.BackgroundBrush" Color="{StaticResource Menu.Background}" />
 
     <Color x:Key="TitleBar.Background">#CCD5F0</Color>
     <SolidColorBrush x:Key="TitleBar.BackgroundBrush" Color="{StaticResource TitleBar.Background}" />
 
+    <Color x:Key="TitleBar.Button.MouseOverBackground">Snow</Color>
+    <SolidColorBrush x:Key="TitleBar.Button.MouseOverBackgroundBrush" Color="{StaticResource TitleBar.Button.MouseOverBackground}" />
+
+    <Color x:Key="TitleBar.Button.PressedBackground">#FEFEFE</Color>
+    <SolidColorBrush x:Key="TitleBar.Button.PressedBackgroundBrush" Color="{StaticResource TitleBar.Button.PressedBackground}" />
+
+    <Color x:Key="TitleBar.CloseButton.MouseOverBackground">#E81123</Color>
+    <SolidColorBrush x:Key="TitleBar.CloseButton.MouseOverBackgroundBrush" Color="{StaticResource TitleBar.CloseButton.MouseOverBackground}" />
+
+    <Color x:Key="TitleBar.CloseButton.PressedBackground">#BC5361</Color>
+    <SolidColorBrush x:Key="TitleBar.CloseButton.PressedBackgroundBrush" Color="{StaticResource TitleBar.CloseButton.PressedBackground}" />
 </ResourceDictionary>

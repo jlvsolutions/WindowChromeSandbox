@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
+
+
+    <!-- Window's outer drop shadow -->
+    <Style TargetType="{x:Type Border}" x:Key="Border.WindowDropShadow">
+        <Setter Property="Background" Value="{StaticResource Background.VeryLightBrush}" />
+        <Setter Property="CornerRadius" Value="{Binding WindowCornerRadius, FallbackValue=10}" />
+        <Setter Property="BorderBrush" Value="SteelBlue" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="17" Opacity=".4" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Window's outer drop shadow, reactive to window's Active state -->
+    <Style TargetType="{x:Type Border}" x:Key="Border.WindowDropShadowReactive" BasedOn="{StaticResource Border.WindowDropShadow}">
+        <Setter Property="BorderBrush" Value="SteelBlue" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="16" Opacity=".4" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="16" Opacity=".2" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Window's outer visible line border -->
+    <Style TargetType="{x:Type Border}" x:Key="Border.WindowTrim">
+        <Setter Property="BorderBrush" Value="{StaticResource Border.WindowTrimBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="CornerRadius" Value="{Binding WindowCornerRadius, FallbackValue=10}" />
+    </Style>
+
+</ResourceDictionary>

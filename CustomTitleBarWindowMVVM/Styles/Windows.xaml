@@ -7,127 +7,131 @@
     <ControlTemplate TargetType="{x:Type Window}" x:Key="ChromeWindowKey">
 
         <!-- Outer border with the drop shadow margin -->
-        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+        <Border Padding="{Binding OuterMarginSize, FallbackValue=10}">
 
-            <!--Main window outline-->
+            <!-- Main window outline -->
             <Grid>
 
                 <!-- Window border and drop shadow -->
-                <Border x:Name="DropShadowBorder"
-                        Background="{StaticResource Background.VeryLightBrush}"
-                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10 10 10 10}">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="17" Opacity=".2"/>
-                    </Border.Effect>
-                </Border>
-                <Border x:Name="DropShadowBorder2"
-                        Background="{StaticResource Background.VeryLightBrush}"
-                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10 10 10 10}">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity=".2"/>
-                    </Border.Effect>
-                </Border>
+                <!--<Border Style="{StaticResource Border.WindowDropShadow}" />-->
+                <Border Style="{StaticResource Border.WindowDropShadowReactive}" />
 
                 <!-- The main window content -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <!-- Title Bar -->
-                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
-                        <!-- Drop Shadow -->
-                        <RowDefinition Height="Auto" />
-                        <!-- Window Content -->
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <Border Style="{StaticResource Border.WindowTrim}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!-- Title Bar -->
+                            <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
+                            <!-- Drop Shadow -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Window Content -->
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <!-- Opacity mask for top corners of Title grid -->
-                    <Border x:Name="TitleContainer" 
+                        <!-- Opacity mask for top corners of Title grid -->
+                        <Border x:Name="TitleContainer"
                             Background="{StaticResource Background.VeryLightBrush}"
                             CornerRadius="{Binding WindowTitleCornerRadius, FallbackValue=10 10 0 0}" />
 
-                    <!-- Opacity mask for bottom corners of Content -->
-                    <Border Grid.Row="2" x:Name="ContentContainer" 
+                        <!-- Opacity mask for bottom corners of Content -->
+                        <Border Grid.Row="2" x:Name="ContentContainer"
                             Background="{StaticResource Background.VeryLightBrush}"
                             CornerRadius="{Binding WindowContentCornerRadius, FallbackValue=0 0 10 10}" />
 
-                    <!--Title Bar-->
-                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource TitleBar.BackgroundBrush}" >
-                        <Grid.ColumnDefinitions>
-                            <!-- Icon -->
-                            <ColumnDefinition Width="Auto" />
+                        <!-- Title Bar -->
+                        <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource TitleBar.BackgroundBrush}" >
+                            <Grid.ColumnDefinitions>
+                                <!-- Icon -->
+                                <ColumnDefinition Width="Auto" />
+                                <!-- Title -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Window Buttons -->
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=TitleContainer}" />
+                            </Grid.OpacityMask>
+
+                            <!-- Title Bar Sysetm Icon -->
+                            <Button Style="{StaticResource TitleBar.SystemIconButtonStyle}" Command="{Binding SystemMenuCommand}">
+                                <Image Source="/Images/Logo/FlagTurquoise.png" />
+                            </Button>
+
                             <!-- Title -->
-                            <ColumnDefinition Width="*"/>
-                            <!-- Window Buttons-->
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.OpacityMask>
-                            <VisualBrush Visual="{Binding ElementName=TitleContainer}" />
-                        </Grid.OpacityMask>
-
-                        <!--Icon-->
-                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding SystemMenuCommand}">
-                            <Image Source="/Images/Logo/FlagTurquoise.png" />
-                        </Button>
-
-                        <!--Title-->
-                        <Viewbox Grid.Column="1" Margin="0" HorizontalAlignment="Left">
-                            <TextBlock Style="{StaticResource TitleText}" Text="{TemplateBinding Title}" />
-                        </Viewbox>
-                        <!--<TextBlock Style="{StaticResource TitleText}" Grid.Column="1"
+                            <Viewbox Grid.Column="1" Margin="0" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource TitleBar.Title}" Text="{TemplateBinding Title}" />
+                            </Viewbox>
+                            <!--<TextBlock Style="{StaticResource TitleBar.Title}" Grid.Column="1"
                                    Text="{TemplateBinding Title}" />-->
 
-                        <!--Window Buttons-->
-                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            
-                            <!--Minimize Button-->
-                            <Button Command="{Binding MinimizeCommand}"
-		                            RenderOptions.EdgeMode="Aliased"
-		                            Style="{StaticResource TitleBarButtonStyle}">
+                            <!-- Title Bar Buttons -->
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                                <Path Width="46" Height="32"
+                                <!-- Minimize Button -->
+                                <Button Command="{Binding MinimizeCommand}"
+		                            RenderOptions.EdgeMode="Aliased"
+		                            Style="{StaticResource TitleBar.ButtonStyle}">
+
+                                    <Path Width="46" Height="32"
 			                          Data="M 18,15 H 28"
 			                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                          StrokeThickness="1" />
-                            </Button>
+                                </Button>
 
-                            <!--Maximize Button-->
-                            <Button Name="maximizeButton"
-		                            Command="{Binding MaximizeCommand}"
-		                            Style="{StaticResource TitleBarButtonStyle}">
-
-                                <Path Width="46" Height="32"
+                                <!-- Maximize Button -->
+                                <Button Name="maximizeButton"
+		                            Command="{Binding MaximizeCommand}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Path Width="46" Height="32"
 			                          Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
 			                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                          StrokeThickness="1" />
-                            </Button>
+                                </Button>
 
-                            <!--Restore Button-->
-                            <Button Name="restoreButton"
-		                            Command="{Binding MaximizeCommand}"
-		                            Style="{StaticResource TitleBarButtonStyle}">
-                                <Path Width="46" Height="32"
+                                <!-- Restore Button -->
+                                <Button Name="restoreButton"
+		                            Command="{Binding MaximizeCommand}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Path Width="46" Height="32"
 			                          Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
 			                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                          StrokeThickness="1" />
-                            </Button>
+                                </Button>
 
-                            <!--Close Button-->
-                            <Button Command="{Binding CloseCommand}"
-		                            Style="{StaticResource TitleBarCloseButtonStyle}">
-                                <Path Width="46" Height="32"
+                                <!-- Close Button -->
+                                <Button Command="{Binding CloseCommand}"
+		                            Style="{StaticResource TitleBar.CloseButtonStyle}">
+                                    <Path Width="46" Height="32"
 			                          Data="M 18,11 27,20 M 18,20 27,11"
 			                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                          StrokeThickness="1" />
-                            </Button>
+                                </Button>
 
-                        </StackPanel>
-                    </Grid>
+                            </StackPanel>
+                        </Grid>
 
-                    <!-- Title Bar Drop shadow -->
-                    <!--<Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
+                        <!-- Title Bar Drop shadow -->
+                        <!--<Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
                         -->
-                    <!-- Underline -->
-                    <!--
+                        <!-- Underline -->
+                        <!--
                         <Border.BorderBrush>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0">
                                 <GradientStop Color="{StaticResource Foreground.Light}" Offset="0.0" />
@@ -137,8 +141,8 @@
                         </Border.BorderBrush>
 
                         -->
-                    <!-- Drop shadow -->
-                    <!--
+                        <!-- Drop shadow -->
+                        <!--
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0, 1">
                                 <GradientStop Color="{StaticResource Border.Sensitive}" Offset="0.0" />
@@ -148,19 +152,20 @@
 
                     </Border>-->
 
-                    <!-- Page Content -->
-                    <Grid Grid.Row="2" Background="AliceBlue" >
-                        <Grid.OpacityMask>
-                            <VisualBrush Visual="{Binding ElementName=ContentContainer}" />
-                        </Grid.OpacityMask>
-                        <Button  Content="That's A Big Button!" Margin="30">
-                        </Button>
-                    </Grid>
+                        <!-- Page Content -->
+                        <Grid Grid.Row="2" Background="AliceBlue" >
+                            <Grid.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=ContentContainer}" />
+                            </Grid.OpacityMask>
+                            <Button  Content="That's A Big Button!" Margin="10">
+                            </Button>
+                        </Grid>
 
-                    <!--<Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
+                        <!--<Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Border>-->
-                </Grid>
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
     </ControlTemplate>
