@@ -7,8 +7,6 @@
     <Style TargetType="{x:Type Border}" x:Key="Border.WindowDropShadow">
         <Setter Property="Background" Value="{StaticResource Background.VeryLightBrush}" />
         <Setter Property="CornerRadius" Value="{Binding WindowCornerRadius, FallbackValue=10}" />
-        <Setter Property="BorderBrush" Value="SteelBlue" />
-        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect ShadowDepth="0" BlurRadius="17" Opacity=".4" />
@@ -18,8 +16,6 @@
 
     <!-- Window's outer drop shadow, reactive to window's Active state -->
     <Style TargetType="{x:Type Border}" x:Key="Border.WindowDropShadowReactive" BasedOn="{StaticResource Border.WindowDropShadow}">
-        <Setter Property="BorderBrush" Value="SteelBlue" />
-        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect ShadowDepth="1" BlurRadius="16" Opacity=".4" />

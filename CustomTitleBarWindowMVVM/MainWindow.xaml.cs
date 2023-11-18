@@ -16,4 +16,10 @@ public partial class MainWindow : Window
 
         DataContext = new WindowViewModel(this);
     }
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        ((HwndSource)PresentationSource.FromVisual(this)).AddHook(User32Helpers.HookProc);
+    }
 }
