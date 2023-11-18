@@ -55,7 +55,7 @@ public class WindowViewModel : ViewModelBase
     /// <summary>
     /// The height of the title bar / caption of the window
     /// </summary>
-    public int TitleHeight { get; set; } = 28;  
+    public int TitleHeight { get; set; } = 32;  
     public GridLength TitleHeightGridLength => new GridLength(TitleHeight + ResizeBorder);
     
     

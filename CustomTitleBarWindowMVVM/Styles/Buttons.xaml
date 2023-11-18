@@ -73,7 +73,7 @@
         </Style.Triggers>
     </Style>
 
-    <!--Close Title Bar Button-->
+    <!-- Title Bar Close Button-->
     <Style TargetType="Button" x:Key="TitleBar.CloseButtonStyle">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Padding" Value="0" />

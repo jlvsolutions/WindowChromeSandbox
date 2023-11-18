@@ -1,63 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
 
-namespace CustomTitleBarWindow;
+namespace CustomTitleBarWindowMVVM;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+public static class User32Helpers
 {
-    public MainWindow()
-    {
-        InitializeComponent();
-        RefreshMaximizeRestoreButton();
-    }
-
-    private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
-
-    private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
-    {
-        WindowState ^= WindowState.Maximized;
-    }
-
-    private void OnCloseButtonClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
-    private void RefreshMaximizeRestoreButton()
-    {
-        if (WindowState == WindowState.Maximized)
-        {
-            maximizeButton.Visibility = Visibility.Collapsed;
-            restoreButton.Visibility = Visibility.Visible;
-        }
-        else
-        {
-            maximizeButton.Visibility = Visibility.Visible;
-            restoreButton.Visibility = Visibility.Collapsed;
-        }
-    }
-
-    private void Window_StateChanged(object sender, EventArgs e)
-    {
-        RefreshMaximizeRestoreButton();
-    }
-
-    #region Maximized placement and sizing
-    // Maximized placement and sizing
-    protected override void OnSourceInitialized(EventArgs e)
-    {
-        base.OnSourceInitialized(e);
-        ((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
-    }
-
     public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
         if (msg == WM_GETMINMAXINFO)
@@ -148,5 +100,5 @@ public partial class MainWindow : Window
         public POINT ptMinTrackSize;
         public POINT ptMaxTrackSize;
     }
-    #endregion
+
 }

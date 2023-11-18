@@ -7,7 +7,7 @@
 
     <!--Title Bar Buttons-->
     <Style TargetType="Button" x:Key="TitleBarButtonStyle">
-        <Setter Property="Foreground" Value="{StaticResource TitleBarBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
@@ -29,7 +29,7 @@
                     
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{}" />
+                            <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource MouseOverOverlayBackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="ButtonContentBorder" Property="Background" Value="{DynamicResource PressedOverlayBackgroundBrush}" />
