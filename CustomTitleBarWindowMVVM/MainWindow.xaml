@@ -24,6 +24,7 @@
             GlassFrameThickness="5"
             />
     </WindowChrome.WindowChrome>
-    <!--This shows in design time, main window outline shows run time-->
-    <!--<Grid Background="AliceBlue"></Grid>-->
+    <Grid>
+        <Button Margin="10">This is a big button!</Button>
+    </Grid>
 </Window>
