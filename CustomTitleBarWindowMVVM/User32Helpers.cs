@@ -1,54 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace CustomTitleBarWindowMVVM;
 
 public static class User32Helpers
 {
-    public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-    {
-        if (msg == WM_GETMINMAXINFO)
-        {
-            // We need to tell the system what our size should be when maximized. Otherwise it will cover the whole screen,
-            // including the task bar.
-            MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO))!;
-
-            // Adjust the maximized size and position to fit the work area of the correct monitor
-            IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
-
-            if (monitor != IntPtr.Zero)
-            {
-                MONITORINFO monitorInfo = new MONITORINFO();
-                monitorInfo.cbSize = Marshal.SizeOf(typeof(MONITORINFO));
-                GetMonitorInfo(monitor, ref monitorInfo);
-                RECT rcWorkArea = monitorInfo.rcWork;
-                RECT rcMonitorArea = monitorInfo.rcMonitor;
-                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
-                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
-                mmi.ptMaxSize.X = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
-                mmi.ptMaxSize.Y = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
-            }
-
-            Marshal.StructureToPtr(mmi, lParam, true);
-        }
-
-        return IntPtr.Zero;
-    }
 
     private const int WM_GETMINMAXINFO = 0x0024;
 
     private const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
 
     [DllImport("user32.dll")]
-    private static extern IntPtr MonitorFromWindow(IntPtr handle, uint flags);
+    private static extern IntPtr MonitorFromWindow(nint handle, uint flags);
 
     [DllImport("user32.dll")]
-    private static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+    private static extern bool GetMonitorInfo(nint hMonitor, ref MONITORINFO lpmi);
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -61,10 +27,10 @@ public static class User32Helpers
 
         public RECT(int left, int top, int right, int bottom)
         {
-            this.Left = left;
-            this.Top = top;
-            this.Right = right;
-            this.Bottom = bottom;
+            Left = left;
+            Top = top;
+            Right = right;
+            Bottom = bottom;
         }
     }
 
@@ -86,8 +52,8 @@ public static class User32Helpers
 
         public POINT(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
     }
 
@@ -101,4 +67,33 @@ public static class User32Helpers
         public POINT ptMaxTrackSize;
     }
 
+    public static IntPtr HookProc(nint hwnd, int msg, nint wParam, nint lParam, ref bool handled)
+    {
+        if (msg == WM_GETMINMAXINFO)
+        {
+            // We need to tell the system what our size should be when maximized. Otherwise it will cover the whole screen,
+            // including the task bar.
+            MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO))!;
+
+            // Adjust the maximized size and position to fit the work area of the correct monitor
+            nint monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+
+            if (monitor != IntPtr.Zero)
+            {
+                MONITORINFO monitorInfo = new MONITORINFO();
+                monitorInfo.cbSize = Marshal.SizeOf(typeof(MONITORINFO));
+                GetMonitorInfo(monitor, ref monitorInfo);
+                RECT rcWorkArea = monitorInfo.rcWork;
+                RECT rcMonitorArea = monitorInfo.rcMonitor;
+                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
+                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
+                mmi.ptMaxSize.X = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
+                mmi.ptMaxSize.Y = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
+            }
+
+            Marshal.StructureToPtr(mmi, lParam, true);
+        }
+
+        return IntPtr.Zero;
+    }
 }

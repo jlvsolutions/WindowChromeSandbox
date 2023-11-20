@@ -1,12 +1,10 @@
-﻿using Accessibility;
-using System;
-using System.Runtime.InteropServices;
-using System.Windows;
+﻿using CustomTitleBarWindowMVVM.Core;
 using System.Windows.Input;
+using System.Windows;
 
 namespace CustomTitleBarWindowMVVM.ViewModels;
 
-public class WindowViewModel : ViewModelBase
+public abstract class ChromeViewModelBase : PropertySetter
 {
     private readonly Window _window;
 
@@ -14,6 +12,7 @@ public class WindowViewModel : ViewModelBase
     /// The size of the resize border around the window
     /// </summary>
     public double ResizeBorder { get; set; } = 6D;
+
     /// <summary>
     /// The size of the resize border around the window, taking into account the outer margin
     /// </summary>
@@ -28,12 +27,6 @@ public class WindowViewModel : ViewModelBase
         get => _window.WindowState == WindowState.Maximized ? 0 : _outerMarginSize;
         set => Set(ref _outerMarginSize, value);
     }
-
-    /// <summary>
-    /// The margin around the window to allow for a drop shadow
-    /// </summary>
-    //public Thickness OuterMarginSizeThickness => new Thickness(OuterMarginSize);
-
 
     private double _windowRadius = 6D;
     /// <summary>
@@ -55,21 +48,19 @@ public class WindowViewModel : ViewModelBase
     /// <summary>
     /// The height of the title bar / caption of the window
     /// </summary>
-    public int TitleHeight { get; set; } = 28;  
+    public int TitleHeight { get; set; } = 28;
     public GridLength TitleHeightGridLength => new GridLength(TitleHeight + ResizeBorder);
-    
-    
-    // TODO:  ViewModel conversions for CornerRadius, Thickness, and GridLength may not be needed as far as binding goes
-    
+
+    //
+    // Commands
     public ICommand SystemMenuCommand { get; }
     public ICommand MinimizeCommand { get; }
     public ICommand MaximizeCommand { get; }
     public ICommand CloseCommand { get; }
-    
 
     //
     // Ctor
-    public WindowViewModel(Window window)
+    public ChromeViewModelBase(Window window)
     {
         _window = window; // TODO:  uumm, this makes the view model aware of the view instance....
 
@@ -83,13 +74,11 @@ public class WindowViewModel : ViewModelBase
         {
             OnPropertyChanged(nameof(ResizeBorderThickness));
             OnPropertyChanged(nameof(OuterMarginSize));
-            //OnPropertyChanged(nameof(OuterMarginSizeThickness));
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
             OnPropertyChanged(nameof(WindowTitleCornerRadius));
             OnPropertyChanged(nameof(WindowContentCornerRadius));
         };
-
     }
 
     /// <summary>
@@ -100,29 +89,8 @@ public class WindowViewModel : ViewModelBase
     {
         // Position of the mouse relative to the window
         Point windowPosition = Mouse.GetPosition(_window);
-        
+
         // Add the window position so its a "ToScreen"
         return new Point(windowPosition.X + _window.Left, windowPosition.Y + _window.Top);
     }
-
-
-    #region user32 dll import for mouse position
-    [DllImport("User32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    internal static extern bool GetCursorPos(ref Win32Point pt);
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct Win32Point
-    {
-        public Int32 X;
-        public Int32 Y;
-    };
-
-    private static Point GetMousePosition()
-    {
-        Win32Point pt = new Win32Point();
-        GetCursorPos(ref pt);
-        return new Point(pt.X, pt.Y);
-    }
-    #endregion 
 }

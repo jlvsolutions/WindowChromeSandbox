@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:local="clr-namespace:CustomTitleBarWindowMVVM">
 
-    
+
     <!-- Control Template for Window with custom Chrome Title Bar / Caption -->
     <ControlTemplate TargetType="{x:Type Window}" x:Key="ChromeWindowKey">
 
@@ -70,29 +70,43 @@
 
                                 <!-- Minimize Button -->
                                 <Button Command="{Binding MinimizeCommand}"
-		                            RenderOptions.EdgeMode="Aliased"
-		                            Style="{StaticResource TitleBar.ButtonStyle}">
+		                                RenderOptions.EdgeMode="Aliased">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
 
                                     <Path Width="46" Height="32"
-			                          Data="M 18,16 H 28"
-			                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-			                          StrokeThickness="1" />
+			                              Data="M 18,16 H 28"
+			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			                              StrokeThickness="1" />
                                 </Button>
                                 <!--Data="M 18,15 H 28"-->
 
                                 <!-- Maximize Button -->
                                 <Button Name="maximizeButton"
-		                            Command="{Binding MaximizeCommand}">
+		                                Command="{Binding MaximizeCommand}">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
+                                                <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanMinimize">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    
+
                                     <Path Width="46" Height="32"
                                           Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
@@ -101,8 +115,9 @@
                                 <!--Data="M 18,11 H 27 V 20 H 18 Z"-->
                                 <!--Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"-->
                                 <!-- Restore Button -->
+                                
                                 <Button Name="restoreButton"
-		                            Command="{Binding MaximizeCommand}">
+		                                Command="{Binding MaximizeCommand}">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
                                             <Style.Triggers>
@@ -122,7 +137,7 @@
 
                                 <!-- Close Button -->
                                 <Button Command="{Binding CloseCommand}"
-		                            Style="{StaticResource TitleBar.CloseButtonStyle}">
+		                                Style="{StaticResource TitleBar.CloseButtonStyle}">
                                     <Path Width="46" Height="32"
 			                              Data="M 18,11 27,20 M 18,20 27,11"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
@@ -169,9 +184,9 @@
                         <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Border>
-                    
+
                     </Grid>
-                    
+
                 </Border>
             </Grid>
         </Border>

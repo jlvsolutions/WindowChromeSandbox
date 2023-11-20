@@ -1,20 +1,18 @@
-﻿<Window x:Class="CustomTitleBarWindowMVVM.MainWindow"
+﻿<Window x:Class="CustomTitleBarWindowMVVM.NoMinMaxWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
         xmlns:viewmodels="clr-namespace:CustomTitleBarWindowMVVM.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        xmlns:local="clr-namespace:CustomTitleBarWindowMVVM"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Icon="Images/Logo/FlagTurquoise.png"
+        ResizeMode="NoResize"
         Template="{StaticResource ResourceKey=ChromeWindowKey}"
-        Title="Lolly's Custom Window" Height="350" Width="600">
-        <!-- NOTE: Setting AllowsTransparency to true causes the default drop shadow to dissapear -->
-        <!-- Setting AllowsTransparency lets us get rounded corners and shadow  -->
-
+        Title="NoMinMaxWindow" Height="350" Width="600">
+    
     <!--
     Steps to make this window chrome:
     1.  Set WindowStyle=None and AllowsTransparency=True
@@ -23,7 +21,7 @@
     4.  Set the DataContext to ChromeViewModelBase derived view model
     5.  Add AddHook call to the OnSourceInitialized override in the code behind
     -->
-    
+
     <WindowChrome.WindowChrome>
         <!--GlassFrameThickness set to 0 causes the default drop shadow to dissapear-->
         <WindowChrome 
@@ -34,17 +32,8 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
-        <!-- Uncomment to see the new content window outline -->
-        <!--<Border BorderBrush="Red" BorderThickness="2" />
-        <Border Grid.Row="1"  BorderBrush="Red" BorderThickness="2" />-->
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button Margin="10 10 10 0" Height="38" Command="{Binding OpenNewWindow}">
-            Open a new window with no min/max
-        </Button>
-        <Button Grid.Row="1" Margin="10">This is a big button!</Button>
+        <!--<Border BorderBrush="Red" BorderThickness="2" />-->
+        <Button Content="Close Me" Click="Button_Click" Height="100" Width="200" FontSize="22"/>
     </Grid>
+    
 </Window>
