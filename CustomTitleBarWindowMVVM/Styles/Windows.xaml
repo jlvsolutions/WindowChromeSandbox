@@ -73,7 +73,6 @@
                                 <!-- Minimize Button -->
                                 <Button Command="{Binding MinimizeCommand}"
 		                                RenderOptions.EdgeMode="Aliased">
-                                    
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
                                             <Style.Triggers>
@@ -91,9 +90,8 @@
                                     <!--Data="M 18,15 H 28"-->
                                 </Button>
 
-
                                 <!-- Maximize Button -->
-                                <Button Name="maximizeButton" Grid.Column="1"
+                                <Button x:Name="MaximizeButton" Grid.Column="1"
 		                                Command="{Binding MaximizeCommand}">
 
                                     <Button.Style>
@@ -120,10 +118,8 @@
                                     <!--Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"-->
                                 </Button>
 
-                                <!--OK, so far... If more than one of these 4 buttons are shown, it works.  If only one is shown, it does not work-->
-
                                 <!-- Restore Button -->
-                                <Button Name="restoreButton" Grid.Column="1"
+                                <Button x:Name="RestoreButton" Grid.Column="1"
 		                                Command="{Binding MaximizeCommand}">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">

@@ -42,9 +42,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Margin="10 10 10 0" Height="38" Command="{Binding OpenNewWindow}">
+        <Button Margin="10" Height="38" Command="{Binding OpenNewWindow}">
             Open a new window with no min/max
         </Button>
-        <Button Grid.Row="1" Margin="0">This is a MainWindow big button!</Button>
+        <Button Grid.Row="1" Margin="0">This is a MainWindow big button!  All the way to edges.</Button>
     </Grid>
 </Window>

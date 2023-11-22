@@ -86,7 +86,7 @@
                 </Button>
 
                 <!--Maximize Button-->
-                <Button Name="maximizeButton"
+                <Button x:Name="MaximizeButton"
 		        Grid.Column="3"
 		        Click="OnMaximizeRestoreButtonClick"
 		        Style="{StaticResource TitleBarButtonStyle}">
@@ -99,7 +99,7 @@
                 </Button>
 
                 <!--Restore Button-->
-                <Button Name="restoreButton"
+                <Button x:Name="RestoreButton"
 		        Grid.Column="3"
 		        Click="OnMaximizeRestoreButtonClick"
 		        Style="{StaticResource TitleBarButtonStyle}">
