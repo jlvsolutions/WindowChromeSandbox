@@ -35,6 +35,7 @@
     <Color x:Key="Menu.Background">#EEF5FD</Color>
     <SolidColorBrush x:Key="Menu.BackgroundBrush" Color="{StaticResource Menu.Background}" />
 
+    <!-- Title Bar Colors -->
     <Color x:Key="TitleBar.Background">AliceBlue</Color>
     <!--<Color x:Key="TitleBar.Background">#CCD5F0</Color>-->
     <SolidColorBrush x:Key="TitleBar.BackgroundBrush" Color="{StaticResource TitleBar.Background}" />

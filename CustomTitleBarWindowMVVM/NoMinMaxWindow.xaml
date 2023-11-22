@@ -12,7 +12,10 @@
         ResizeMode="NoResize"
         Template="{StaticResource ResourceKey=ChromeWindowKey}"
         Title="NoMinMaxWindow" Height="350" Width="600">
-    
+
+    <!--ResizeMode="NoResize"-->
+
+
     <!--
     Steps to make this window chrome:
     1.  Set WindowStyle=None and AllowsTransparency=True
@@ -33,7 +36,7 @@
 
     <Grid>
         <!--<Border BorderBrush="Red" BorderThickness="2" />-->
-        <Button Content="Close Me" Click="Button_Click" Height="100" Width="200" FontSize="22"/>
+        <Button Content="Close Me" Margin="0 20 0 0" Click="Button_Click" FontSize="22"/>
     </Grid>
     
 </Window>

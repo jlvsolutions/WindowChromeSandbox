@@ -45,6 +45,6 @@
         <Button Margin="10 10 10 0" Height="38" Command="{Binding OpenNewWindow}">
             Open a new window with no min/max
         </Button>
-        <Button Grid.Row="1" Margin="10">This is a big button!</Button>
+        <Button Grid.Row="1" Margin="0">This is a MainWindow big button!</Button>
     </Grid>
 </Window>

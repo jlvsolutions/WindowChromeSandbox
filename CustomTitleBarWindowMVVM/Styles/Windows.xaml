@@ -9,16 +9,18 @@
         <!-- Outer border with the drop shadow margin -->
         <Border Padding="{Binding OuterMarginSize, FallbackValue=10}">
 
-            <!-- Main window outline -->
+            <!-- Main window outline including shadow -->
             <Grid>
 
                 <!-- Window border and drop shadow -->
                 <!--<Border Style="{StaticResource Border.WindowDropShadow}" />-->
                 <Border Style="{StaticResource Border.WindowDropShadowReactive}" />
 
-                <!-- The main window content -->
-                <Border Style="{StaticResource Border.WindowTrim}">
-                    <Grid>
+                <!-- The main window title bar and content trim outline -->
+                <Border x:Name="WindowTrim" Style="{StaticResource Border.WindowTrim}">
+
+                    <!-- Title Bar and Window Content -->
+                    <Grid >
                         <Grid.RowDefinitions>
                             <!-- Title Bar -->
                             <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
@@ -28,15 +30,18 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <!-- Opacity mask for top corners of Title grid -->
+
+
+                        <!--Opacity mask for top corners of Title grid-->
                         <Border x:Name="TitleContainer"
                             Background="{StaticResource Background.VeryLightBrush}"
                             CornerRadius="{Binding WindowTitleCornerRadius, FallbackValue=10 10 0 0}" />
 
-                        <!-- Opacity mask for bottom corners of Content -->
+                        <!--Opacity mask for bottom corners of Content-->
                         <Border Grid.Row="2" x:Name="ContentContainer"
                             Background="{StaticResource Background.VeryLightBrush}"
                             CornerRadius="{Binding WindowContentCornerRadius, FallbackValue=0 0 10 10}" />
+
 
                         <!-- Title Bar -->
                         <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource TitleBar.BackgroundBrush}" >
@@ -53,24 +58,31 @@
                                 <VisualBrush Visual="{Binding ElementName=TitleContainer}" />
                             </Grid.OpacityMask>
 
-                            <!-- Title Bar Sysetm Icon -->
+                            <!-- Title Bar System Icon -->
                             <Button Style="{StaticResource TitleBar.SystemIconButtonStyle}" Command="{Binding SystemMenuCommand}">
                                 <Image Source="/Images/Logo/FlagTurquoise.png" />
                             </Button>
 
                             <!-- Title -->
                             <Viewbox Grid.Column="1" Margin="0" HorizontalAlignment="Left">
-                                <TextBlock Style="{StaticResource TitleBar.Title}" Text="{TemplateBinding Title}" />
+                                <TextBlock Style="{StaticResource TitleBar.TitleStyle}" Text="{TemplateBinding Title}" />
                             </Viewbox>
-                            <!--<TextBlock Style="{StaticResource TitleBar.Title}" Grid.Column="1"
-                                   Text="{TemplateBinding Title}" />-->
 
                             <!-- Title Bar Buttons -->
-                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Grid Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Dummy Button to make OpacityMask work.  I know, it's nuts. -->
+                                <Button Visibility="Hidden" Content="Some Text"/>
 
                                 <!-- Minimize Button -->
                                 <Button Command="{Binding MinimizeCommand}"
 		                                RenderOptions.EdgeMode="Aliased">
+                                    
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
                                             <Style.Triggers>
@@ -85,22 +97,24 @@
 			                              Data="M 18,16 H 28"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                              StrokeThickness="1" />
+                                    <!--Data="M 18,15 H 28"-->
                                 </Button>
-                                <!--Data="M 18,15 H 28"-->
+
 
                                 <!-- Maximize Button -->
-                                <Button Name="maximizeButton"
+                                <Button Name="maximizeButton" Grid.Column="1"
 		                                Command="{Binding MaximizeCommand}">
+
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanMinimize">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -111,12 +125,14 @@
                                           Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                              StrokeThickness="1" />
+                                    <!--Data="M 18,11 H 27 V 20 H 18 Z"-->
+                                    <!--Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"-->
                                 </Button>
-                                <!--Data="M 18,11 H 27 V 20 H 18 Z"-->
-                                <!--Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"-->
+
+                                <!--OK, so far... If more than one of these 4 buttons are shown, it works.  If only one is shown, it does not work-->
+
                                 <!-- Restore Button -->
-                                
-                                <Button Name="restoreButton"
+                                <Button Name="restoreButton" Grid.Column="1"
 		                                Command="{Binding MaximizeCommand}">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleBar.ButtonStyle}">
@@ -127,24 +143,26 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
+                                    
                                     <Path Width="46" Height="32"
                                           Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                              StrokeThickness="1" />
+                                    <!--Data="M 18,12 H 26 V 20 H 18 Z M 20,12 V 10 H 28 V 18 H 26"-->
+                                    <!--Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"-->
                                 </Button>
-                                <!--Data="M 18,12 H 26 V 20 H 18 Z M 20,12 V 10 H 28 V 18 H 26"-->
-                                <!--Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"-->
 
                                 <!-- Close Button -->
-                                <Button Command="{Binding CloseCommand}"
+                                <Button Command="{Binding CloseCommand}" Grid.Column="2"
 		                                Style="{StaticResource TitleBar.CloseButtonStyle}">
+                                    
                                     <Path Width="46" Height="32"
 			                              Data="M 18,11 27,20 M 18,20 27,11"
 			                              Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 			                              StrokeThickness="1" />
                                 </Button>
+                            </Grid>
 
-                            </StackPanel>
                         </Grid>
 
                         <!-- Title Bar Drop shadow -->
@@ -173,20 +191,20 @@
                     </Border>-->
 
                         <!-- Page Content -->
-                        <!--<Grid Grid.Row="2" >
+                        <Grid Grid.Row="2" >
+
                             <Grid.OpacityMask>
                                 <VisualBrush Visual="{Binding ElementName=ContentContainer}" />
                             </Grid.OpacityMask>
-                            <Button  Content="That's A Big Button!" Margin="10">
-                            </Button>
-                        </Grid>-->
 
-                        <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
-                            <ContentPresenter Content="{TemplateBinding Content}" />
-                        </Border>
+                            <!--<Border Grid.Row="2" Padding="{Binding InnerContentPadding}">-->
+                            <Border Grid.Row="2">
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Border>
+
+                        </Grid>
 
                     </Grid>
-
                 </Border>
             </Grid>
         </Border>

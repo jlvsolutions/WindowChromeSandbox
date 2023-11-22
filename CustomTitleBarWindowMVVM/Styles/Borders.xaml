@@ -35,9 +35,9 @@
     <!-- Window's outer visible line border -->
     <Style TargetType="{x:Type Border}" x:Key="Border.WindowTrim">
         <Setter Property="BorderBrush" Value="{StaticResource Border.WindowTrimBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <!--<Setter Property="BorderThickness" Value="0.5" />-->
-        <!--<Setter Property="CornerRadius" Value="{Binding WindowCornerRadius, FallbackValue=10}" />-->
+        <Setter Property="BorderThickness" Value="0.75" />
+        <Setter Property="Background" Value="{StaticResource Background.VeryLightBrush}" />
+        <Setter Property="CornerRadius" Value="{Binding WindowCornerRadius, FallbackValue=10}" />
     </Style>
 
 </ResourceDictionary>

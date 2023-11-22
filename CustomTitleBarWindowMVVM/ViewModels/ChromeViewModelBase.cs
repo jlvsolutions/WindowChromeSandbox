@@ -28,7 +28,7 @@ public abstract class ChromeViewModelBase : PropertySetter
         set => Set(ref _outerMarginSize, value);
     }
 
-    private double _windowRadius = 6D;
+    private double _windowRadius = 15D;
     /// <summary>
     /// The radius of the window corners
     /// </summary>
