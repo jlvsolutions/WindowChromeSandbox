@@ -16,6 +16,10 @@
                 <!--<Border Style="{StaticResource Border.WindowDropShadow}" />-->
                 <Border Style="{StaticResource Border.WindowDropShadowReactive}" />
 
+                <Border x:Name="WindowMask"
+                        Background="{StaticResource Background.VeryLightBrush}"
+                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+
                 <!-- The main window title bar and content trim outline -->
                 <Border x:Name="WindowTrim" Style="{StaticResource Border.WindowTrim}">
 
@@ -30,18 +34,9 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-
-
-                        <!--Opacity mask for top corners of Title grid-->
-                        <Border x:Name="TitleContainer"
-                            Background="{StaticResource Background.VeryLightBrush}"
-                            CornerRadius="{Binding WindowTitleCornerRadius, FallbackValue=10 10 0 0}" />
-
-                        <!--Opacity mask for bottom corners of Content-->
-                        <Border Grid.Row="2" x:Name="ContentContainer"
-                            Background="{StaticResource Background.VeryLightBrush}"
-                            CornerRadius="{Binding WindowContentCornerRadius, FallbackValue=0 0 10 10}" />
-
+                        <Grid.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=WindowMask}" />
+                        </Grid.OpacityMask>
 
                         <!-- Title Bar -->
                         <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource TitleBar.BackgroundBrush}" >
@@ -53,10 +48,6 @@
                                 <!-- Window Buttons -->
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-
-                            <Grid.OpacityMask>
-                                <VisualBrush Visual="{Binding ElementName=TitleContainer}" />
-                            </Grid.OpacityMask>
 
                             <!-- Title Bar System Icon -->
                             <Button Style="{StaticResource TitleBar.SystemIconButtonStyle}" Command="{Binding SystemMenuCommand}">
@@ -188,22 +179,16 @@
                             </LinearGradientBrush>
                         </Border.Background>
 
-                    </Border>-->
+                        </Border>-->
 
                         <!-- Page Content -->
                         <Grid Grid.Row="2" >
 
-                            <Grid.OpacityMask>
-                                <VisualBrush Visual="{Binding ElementName=ContentContainer}" />
-                            </Grid.OpacityMask>
-
-                            <!--<Border Grid.Row="2" Padding="{Binding InnerContentPadding}">-->
                             <Border Grid.Row="2">
                                 <ContentPresenter Content="{TemplateBinding Content}" />
                             </Border>
 
                         </Grid>
-
                     </Grid>
                 </Border>
             </Grid>
