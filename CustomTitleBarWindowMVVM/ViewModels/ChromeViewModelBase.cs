@@ -42,8 +42,6 @@ public abstract class ChromeViewModelBase : PropertySetter
     /// The radius of the window corners
     /// </summary>
     public CornerRadius WindowCornerRadius => new CornerRadius(WindowRadius);
-    public CornerRadius WindowTitleCornerRadius => new CornerRadius(WindowRadius, WindowRadius, 0D, 0D);
-    public CornerRadius WindowContentCornerRadius => new CornerRadius(0D, 0D, WindowRadius, WindowRadius);
 
     /// <summary>
     /// The height of the title bar / caption of the window
@@ -76,8 +74,6 @@ public abstract class ChromeViewModelBase : PropertySetter
             OnPropertyChanged(nameof(OuterMarginSize));
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
-            OnPropertyChanged(nameof(WindowTitleCornerRadius));
-            OnPropertyChanged(nameof(WindowContentCornerRadius));
         };
     }
 
